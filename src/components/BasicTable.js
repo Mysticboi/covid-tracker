@@ -18,8 +18,6 @@ const numberWithCommas = (x) => {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
 
-console.log(numberWithCommas('1000'));
-
 export default function BasicTable(props) {
   const classes = useStyles();
   const rows = props.latestCovidCountries;
@@ -35,16 +33,13 @@ export default function BasicTable(props) {
                 Confirmed
               </TableCell>
               <TableCell style={{ fontWeight: 'bold' }} align="right">
-                Recovred
+                Recovered
               </TableCell>
               <TableCell style={{ fontWeight: 'bold' }} align="right">
                 Critical
               </TableCell>
-              <TableCell style={{ fontWeight: 'bold' }} align="right">
-                Deaths
-              </TableCell>
               <TableCell style={{ fontWeight: 'bold' }} align="center">
-                Date of Last Update
+                Deaths
               </TableCell>
             </TableRow>
           </TableHead>
@@ -63,11 +58,8 @@ export default function BasicTable(props) {
                 <TableCell align="right">
                   {numberWithCommas(row.critical)}
                 </TableCell>
-                <TableCell align="right">
-                  {numberWithCommas(row.deaths)}
-                </TableCell>
                 <TableCell align="center">
-                  {row.lastUpdate && row.lastUpdate.split('T')[0]}
+                  {numberWithCommas(row.deaths)}
                 </TableCell>
               </TableRow>
             ))}
