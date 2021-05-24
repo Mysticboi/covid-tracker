@@ -1,46 +1,15 @@
 import { useState } from 'react';
-import axios from 'axios';
 
 import BasicTable from './components/BasicTable';
 
 import countries from './data/countries.json';
 import Select from 'react-select';
+import { fetchLatestCovidStatus } from './util/api';
 
 const countriesOptions = countries.map((item) => {
   const name = item.name;
   return { value: name, label: name };
 });
-
-const fetchLatestCovidStatus = async (countryName) => {
-  const options = {
-    method: 'GET',
-    url: 'https://covid-19-data.p.rapidapi.com/country',
-    params: { name: countryName },
-    headers: {
-      'x-rapidapi-key': '99d1a6e627mshba8f7443194897cp1f0fa6jsne0cfe850257e',
-      'x-rapidapi-host': 'covid-19-data.p.rapidapi.com',
-    },
-  };
-
-  try {
-    const response = await axios.request(options);
-    return response;
-  } catch (error) {
-    return Promise.reject(error);
-  }
-};
-
-/*const testFetch = async () => {
-  try {
-    const testResponse = await fetchLatestCovidStatus('france');
-    console.log('Testresponse', testResponse);
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-testFetch();
-*/
 
 function App() {
   // const [selectedCountry, setSelectedCountry] = useState('');
@@ -51,17 +20,23 @@ function App() {
 
   const handleSelectChange = async (e) => {
     // e represents the select object {value: ... , label: ...}
-    console.log(e);
     // setSelectedCountry(e.value);
     try {
       const response = await fetchLatestCovidStatus(e.value);
       setRemainingRequests(response.headers['x-ratelimit-requests-remaining']);
       const data = response.data[0];
+      console.log('data', data);
+
+      const keys = latestCovidCountry.map((item) => item.code);
+      const index = keys.indexOf(data.code);
+      if (index !== -1) {
+        setError(`Country already selected, check row ${index + 1} `);
+        return;
+      }
       if (data.confirmed + data.recovered + data.critical + data.deaths === 0) {
         setError(`No data available for ${data.country}`);
         return;
       }
-      console.log('changeResponse', response.data[0]);
       setLatestCovidCountry([...latestCovidCountry, data]);
       setDateLastUpdateTotal(data.lastUpdate.split('T')[0]);
       error && setError('');
@@ -82,7 +57,17 @@ function App() {
           Current total covid stats (Last updated on {dateLastUpdateTotal})
         </h3>
       )}
-      <BasicTable latestCovidCountries={latestCovidCountry} />
+      <BasicTable rows={latestCovidCountry} />
+
+      <button
+        onClick={() => {
+          setDateLastUpdateTotal('');
+          setLatestCovidCountry([]);
+          setError('');
+        }}
+      >
+        Clear All
+      </button>
 
       {remainingRequests !== 0 && (
         <p>

@@ -10,7 +10,10 @@ import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles({
   table: {
-    minWidth: 650,
+    width: window.width,
+  },
+  tableCell: {
+    fontWeight: 'bold',
   },
 });
 
@@ -18,9 +21,8 @@ const numberWithCommas = (x) => {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
 
-export default function BasicTable(props) {
+export default function BasicTable({ rows }) {
   const classes = useStyles();
-  const rows = props.latestCovidCountries;
 
   return (
     rows.length !== 0 && (
@@ -28,34 +30,42 @@ export default function BasicTable(props) {
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell style={{ fontWeight: 'bold' }}>Country name</TableCell>
-              <TableCell style={{ fontWeight: 'bold' }} align="right">
+              <TableCell></TableCell>
+              <TableCell className={classes.tableCell}>Country name</TableCell>
+              <TableCell className={classes.tableCell} align="center">
                 Confirmed
               </TableCell>
-              <TableCell style={{ fontWeight: 'bold' }} align="right">
+              <TableCell className={classes.tableCell} align="center">
                 Recovered
               </TableCell>
-              <TableCell style={{ fontWeight: 'bold' }} align="right">
+              <TableCell className={classes.tableCell} align="center">
                 Critical
               </TableCell>
-              <TableCell style={{ fontWeight: 'bold' }} align="center">
+              <TableCell className={classes.tableCell} align="center">
                 Deaths
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {rows.map((row, i) => (
               <TableRow key={row.code}>
+                <TableCell
+                  style={{ fontWeight: 'bold', width: 10 }}
+                  align="left"
+                >
+                  {i + 1}
+                </TableCell>
                 <TableCell component="th" scope="row">
                   {row.country}
                 </TableCell>
-                <TableCell align="right">
+
+                <TableCell align="center">
                   {numberWithCommas(row.confirmed)}
                 </TableCell>
-                <TableCell align="right">
+                <TableCell align="center">
                   {numberWithCommas(row.recovered)}
                 </TableCell>
-                <TableCell align="right">
+                <TableCell align="center">
                   {numberWithCommas(row.critical)}
                 </TableCell>
                 <TableCell align="center">
