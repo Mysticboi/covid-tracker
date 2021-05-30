@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const fetchLatestCovidStatus = async (countryName) => {
+export const fetchTotalCovidStatus = async (countryName) => {
   const options = {
     method: 'GET',
     url: 'https://covid-19-data.p.rapidapi.com/country',
@@ -18,10 +18,10 @@ export const fetchLatestCovidStatus = async (countryName) => {
     return Promise.reject(error);
   }
 };
-
-/*const testFetch = async () => {
+/*
+const testFetch = async () => {
   try {
-    const testResponse = await fetchLatestCovidStatus('france');
+    const testResponse = await fetchTotalCovidStatus('france');
     console.log('Testresponse', testResponse);
   } catch (error) {
     console.error(error);
