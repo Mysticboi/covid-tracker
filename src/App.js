@@ -47,6 +47,7 @@ function App() {
         );
       error && setError('');
     } catch (error) {
+      setError('Only one request/second is allowed');
       console.error(error);
     }
   };
@@ -68,9 +69,14 @@ function App() {
         </a>
       </h2>
       <h3>Select a country just below</h3>
-      <Select options={countriesOptions} onChange={handleSelectChange} />
+      <div style={{ width: 500, margin: 'auto' }}>
+        <Select options={countriesOptions} onChange={handleSelectChange} />
+      </div>
+
       <br />
-      <h3 style={{ color: 'red', fontStyle: 'italic' }}>{error}</h3>
+      <h3 style={{ color: 'red', fontStyle: 'italic', textAlign: 'center' }}>
+        {error}
+      </h3>
       {totalCovidCountry.length !== 0 && (
         <h3>
           Current total covid stats (Last updated on {dateLastUpdateTotal})
@@ -78,30 +84,33 @@ function App() {
       )}
       <BasicTable rows={totalCovidCountry} />
       <br />
+
       {totalCovidCountry.length !== 0 && (
-        <Button
-          variant="outlined"
-          color="primary"
-          size="small"
-          startIcon={<Delete />}
-          onClick={() => {
-            setDateLastUpdateTotal('');
-            setTotalCovidCountry([]);
-            setError('');
-          }}
-        >
-          Clear All
-        </Button>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <Button
+            variant="outlined"
+            color="primary"
+            size="small"
+            startIcon={<Delete />}
+            onClick={() => {
+              setDateLastUpdateTotal('');
+              setTotalCovidCountry([]);
+              setError('');
+            }}
+          >
+            Clear All
+          </Button>
+        </div>
       )}
 
-      {remainingRequests !== 0 && (
-        <p>
-          Number of API requests remaining for this month: {remainingRequests}
-        </p>
-      )}
-      {remainingRequests === 0 && (
-        <p>Choose a country to get the number of API requests remaining</p>
-      )}
+      <div style={{ textAlign: 'right' }}>
+        {remainingRequests !== 0 && (
+          <p>Number of API requests remaining: {remainingRequests}</p>
+        )}
+        {remainingRequests === 0 && (
+          <p>Choose a country to get the number of API requests remaining</p>
+        )}
+      </div>
     </div>
   );
 }
