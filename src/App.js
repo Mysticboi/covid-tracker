@@ -7,6 +7,7 @@ import { Button } from '@material-ui/core';
 import countries from './data/countries.json';
 import Select from 'react-select';
 import { fetchTotalCovidStatus } from './util/api';
+import { isMobile } from 'react-device-detect';
 
 const countriesOptions = countries.map((item) => {
   const name = item.name;
@@ -69,7 +70,7 @@ function App() {
         </a>
       </h2>
       <h3>Select a country just below</h3>
-      <div style={{ width: 500, margin: 'auto' }}>
+      <div style={{ width: isMobile ? 150 : 300, margin: 'auto' }}>
         <Select options={countriesOptions} onChange={handleSelectChange} />
       </div>
 

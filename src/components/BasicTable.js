@@ -7,8 +7,11 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { isMobile } from 'react-device-detect';
 
-const width = 600;
+const width = isMobile ? 300 : 600;
+
+console.log('isMobile', isMobile);
 const useStyles = makeStyles({
   table: {
     width: width,
