@@ -1,0 +1,13 @@
+h1 {
+  text-align: center;
+}
+
+.author {
+  text-align: right;
+}
+
+.error {
+  color: red;
+  font-style: italic;
+  text-align: center;
+}

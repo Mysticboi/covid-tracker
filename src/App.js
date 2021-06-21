@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import './App.css';
+
 import BasicTable from './components/BasicTable';
 import { GitHub, Delete } from '@material-ui/icons';
 import { Button } from '@material-ui/core';
@@ -55,8 +57,8 @@ function App() {
 
   return (
     <div className="App">
-      <h1 style={{ textAlign: 'center' }}>Covid Country Tracker</h1>
-      <h2 style={{ textAlign: 'right' }}>
+      <h1>Covid Country Tracker</h1>
+      <h2 className="author">
         Made by{' '}
         <a
           href="https://github.com/Mysticboi"
@@ -70,14 +72,12 @@ function App() {
         </a>
       </h2>
       <h3>Select a country just below</h3>
-      <div style={{ width: isMobile ? 150 : 300, margin: 'auto' }}>
+      <div style={{ width: isMobile ? 300 : 500, margin: 'auto' }}>
         <Select options={countriesOptions} onChange={handleSelectChange} />
       </div>
 
       <br />
-      <h3 style={{ color: 'red', fontStyle: 'italic', textAlign: 'center' }}>
-        {error}
-      </h3>
+      <h3 className="error">{error}</h3>
       {totalCovidCountry.length !== 0 && (
         <h3>
           Current total covid stats (Last updated on {dateLastUpdateTotal})
