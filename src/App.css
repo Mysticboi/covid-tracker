@@ -1,13 +1,44 @@
-h1 {
+h1, .error, h3 {
   text-align: center;
 }
 
 .author {
   text-align: right;
+  font-style: italic;
+}
+
+h1,h3, .author, .api{
+  color: #05386B;
 }
 
 .error {
-  color: red;
+  color: rgb(209, 6, 6);
   font-style: italic;
-  text-align: center;
+}
+
+
+body {
+  background-color: #85bcfa;
+}
+
+.api{
+  font-weight: bold;
+}
+
+.api , a{
+  color : rgb(105, 105, 105);
+}
+
+a {
+  font-weight: bold;
+}
+
+.safetyImg {
+  margin: auto;
+  width: 800px;
+  height: 350px;
+}
+img {
+  width: 800px;
+  height: 350px;
 }

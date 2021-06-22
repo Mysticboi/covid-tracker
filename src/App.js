@@ -11,6 +11,8 @@ import Select from 'react-select';
 import { fetchTotalCovidStatus } from './util/api';
 import { isMobile } from 'react-device-detect';
 
+import safety from './assets/covid-safety-measures.jpg';
+
 const countriesOptions = countries.map((item) => {
   const name = item.name;
   return { value: name, label: name };
@@ -64,7 +66,6 @@ function App() {
           href="https://github.com/Mysticboi"
           target="_blank"
           rel="noreferrer"
-          style={{ color: 'gray' }}
         >
           Walid
           <span> </span>
@@ -89,7 +90,7 @@ function App() {
       {totalCovidCountry.length !== 0 && (
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <Button
-            variant="outlined"
+            variant="contained"
             color="primary"
             size="small"
             startIcon={<Delete />}
@@ -106,11 +107,15 @@ function App() {
 
       <div style={{ textAlign: 'right' }}>
         {remainingRequests !== 0 && (
-          <p>Number of API requests remaining: {remainingRequests}</p>
+          <p className="api">Number of API requests remaining: {remainingRequests}</p>
         )}
         {remainingRequests === 0 && (
-          <p>Choose a country to get the number of API requests remaining</p>
+          <p className="api">Choose a country to get the number of API requests remaining</p>
         )}
+      </div>
+
+      <div className="safetyImg">
+        <img src={safety} alt="safetyMeasures"></img>
       </div>
     </div>
   );
