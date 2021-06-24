@@ -44,7 +44,7 @@ function App() {
         setError(`No data available for ${data.country}`);
         return;
       }
-      setTotalCovidCountry([...totalCovidCountry, data]);
+      setTotalCovidCountry([data, ...totalCovidCountry]);
       // if dateLastUpdate not already available we get it from the data
       !dateLastUpdateTotal &&
         setDateLastUpdateTotal(
@@ -62,11 +62,7 @@ function App() {
       <h1>Covid Country Tracker</h1>
       <h2 className="author">
         Made by{' '}
-        <a
-          href="https://github.com/Mysticboi"
-          target="_blank"
-          rel="noreferrer"
-        >
+        <a href="https://github.com/Mysticboi" target="_blank" rel="noreferrer">
           Walid
           <span> </span>
           <GitHub color="action" />
@@ -84,7 +80,11 @@ function App() {
           Current total covid stats (Last updated on {dateLastUpdateTotal})
         </h3>
       )}
-      <BasicTable rows={totalCovidCountry} />
+      {totalCovidCountry.length !== 0 && (
+        <div className="table">
+          <BasicTable rows={totalCovidCountry} />
+        </div>
+      )}
       <br />
 
       {totalCovidCountry.length !== 0 && (
@@ -107,10 +107,14 @@ function App() {
 
       <div style={{ textAlign: 'right' }}>
         {remainingRequests !== 0 && (
-          <p className="api">Number of API requests remaining: {remainingRequests}</p>
+          <p className="api">
+            Number of API requests remaining: {remainingRequests}
+          </p>
         )}
         {remainingRequests === 0 && (
-          <p className="api">Choose a country to get the number of API requests remaining</p>
+          <p className="api">
+            Choose a country to get the number of API requests remaining
+          </p>
         )}
       </div>
 

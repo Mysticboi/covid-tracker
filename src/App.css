@@ -1,4 +1,6 @@
-h1, .error, h3 {
+h1,
+.error,
+h3 {
   text-align: center;
 }
 
@@ -7,8 +9,11 @@ h1, .error, h3 {
   font-style: italic;
 }
 
-h1,h3, .author, .api{
-  color: #05386B;
+h1,
+h3,
+.author,
+.api {
+  color: #05386b;
 }
 
 .error {
@@ -16,17 +21,17 @@ h1,h3, .author, .api{
   font-style: italic;
 }
 
-
 body {
   background-color: #85bcfa;
 }
 
-.api{
+.api {
   font-weight: bold;
 }
 
-.api , a{
-  color : rgb(105, 105, 105);
+.api,
+a {
+  color: rgb(105, 105, 105);
 }
 
 a {
@@ -34,11 +39,22 @@ a {
 }
 
 .safetyImg {
-  margin: auto;
-  width: 800px;
-  height: 350px;
+  margin: 0 auto;
+  max-width: 800px;
+  max-height: 350px;
 }
 img {
-  width: 800px;
-  height: 350px;
+  max-width: 800px;
+  max-height: 350px;
+  margin-left: 50px;
+}
+
+.table {
+  max-height: 210px;
+  overflow-y: scroll;
+  border: 2px solid #05386b;
+  border-radius: 5px;
+  padding: 0;
+  max-width: 950px;
+  margin: 0 auto;
 }

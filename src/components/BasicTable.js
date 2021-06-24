@@ -14,9 +14,10 @@ const width = isMobile ? 500 : 900;
 console.log('isMobile', isMobile);
 const useStyles = makeStyles({
   table: {
-    width: width,
+    maxWidth: width,
+    minWidth: 500,
   },
-  tableCell: {
+  tableTitle: {
     fontWeight: 'bold',
   },
   tableRow: {
@@ -26,6 +27,7 @@ const useStyles = makeStyles({
     display: 'flex',
     justifyContent: 'center',
   },
+  tableCell: {},
 });
 
 const numberWithCommas = (x) => {
@@ -36,61 +38,62 @@ export default function BasicTable({ rows }) {
   const classes = useStyles();
 
   return (
-    rows.length !== 0 && (
-      <div className={classes.containerDiv}>
-        <TableContainer component={Paper} style={{ width: width }}>
-          <Table className={classes.table} aria-label="simple table">
-            <TableHead>
-              <TableRow className={classes.tableRow}>
-                <TableCell></TableCell>
-                <TableCell className={classes.tableCell}>
-                  Country name
+    <div className={classes.containerDiv}>
+      <TableContainer component={Paper} style={{ width: width }}>
+        <Table className={classes.table} aria-label="simple table">
+          <TableHead>
+            <TableRow className={classes.tableRow}>
+              <TableCell></TableCell>
+              <TableCell className={classes.tableTitle}>Country name</TableCell>
+              <TableCell className={classes.tableTitle} align="center">
+                Confirmed
+              </TableCell>
+              <TableCell className={classes.tableTitle} align="center">
+                Recovered
+              </TableCell>
+              <TableCell className={classes.tableTitle} align="center">
+                Critical
+              </TableCell>
+              <TableCell className={classes.tableTitle} align="center">
+                Deaths
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows.map((row, i) => (
+              <TableRow className={classes.tableRow} key={row.code}>
+                <TableCell
+                  style={{ fontWeight: 'bold', width: 10 }}
+                  align="left"
+                  className={classes.tableCell}
+                >
+                  {rows.length - i}
                 </TableCell>
-                <TableCell className={classes.tableCell} align="center">
-                  Confirmed
+                <TableCell
+                  component="th"
+                  scope="row"
+                  className={classes.tableCell}
+                >
+                  {row.country}
                 </TableCell>
-                <TableCell className={classes.tableCell} align="center">
-                  Recovered
+
+                <TableCell align="center" className={classes.tableCell}>
+                  {numberWithCommas(row.confirmed)}
                 </TableCell>
-                <TableCell className={classes.tableCell} align="center">
-                  Critical
+                <TableCell align="center" className={classes.tableCell}>
+                  {numberWithCommas(row.recovered)}
                 </TableCell>
-                <TableCell className={classes.tableCell} align="center">
-                  Deaths
+                <TableCell align="center" className={classes.tableCell}>
+                  {numberWithCommas(row.critical)}
+                </TableCell>
+                <TableCell align="center" className={classes.tableCell}>
+                  {numberWithCommas(row.deaths)}
                 </TableCell>
               </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.map((row, i) => (
-                <TableRow className={classes.tableRow} key={row.code}>
-                  <TableCell
-                    style={{ fontWeight: 'bold', width: 10 }}
-                    align="left"
-                  >
-                    {i + 1}
-                  </TableCell>
-                  <TableCell component="th" scope="row">
-                    {row.country}
-                  </TableCell>
-
-                  <TableCell align="center">
-                    {numberWithCommas(row.confirmed)}
-                  </TableCell>
-                  <TableCell align="center">
-                    {numberWithCommas(row.recovered)}
-                  </TableCell>
-                  <TableCell align="center">
-                    {numberWithCommas(row.critical)}
-                  </TableCell>
-                  <TableCell align="center">
-                    {numberWithCommas(row.deaths)}
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </div>
-    )
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </div>
   );
 }
