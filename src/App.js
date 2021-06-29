@@ -37,7 +37,7 @@ function App() {
       const keys = totalCovidCountry.map((item) => item.code);
       const index = keys.indexOf(data.code);
       if (index !== -1) {
-        setError(`Country already selected, check row ${index + 1} `);
+        setError(`Country already selected, check row ${keys.length - index} `);
         return;
       }
       if (data.confirmed + data.recovered + data.critical + data.deaths === 0) {
