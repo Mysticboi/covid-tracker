@@ -64,9 +64,13 @@ function App() {
       <h1>Covid Country Tracker</h1>
 
       <h2 className="author">
-        Made by{' '}
-        <a href="https://github.com/Mysticboi" target="_blank" rel="noreferrer">
-          Walid
+        View on{' '}
+        <a
+          href="https://github.com/Mysticboi/covid-tracker"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Github
           <span> </span>
           <GitHub color="action" />
         </a>
