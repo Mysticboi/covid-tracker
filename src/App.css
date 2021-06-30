@@ -1,60 +1,60 @@
 h1,
 .error,
 h3 {
-  text-align: center;
+    text-align: center;
 }
 
 .author {
-  text-align: right;
-  font-style: italic;
+    text-align: right;
+    font-style: italic;
 }
 
 h1,
 h3,
 .author,
 .api {
-  color: #05386b;
+    color: #05386b;
 }
 
 .error {
-  color: rgb(209, 6, 6);
-  font-style: italic;
+    color: rgb(209, 6, 6);
+    font-style: italic;
 }
 
 body {
-  background-color: #85bcfa;
+    background-color: #85bcfa;
 }
 
 .api {
-  font-weight: bold;
+    font-weight: bold;
 }
 
 .api,
 a {
-  color: rgb(105, 105, 105);
+    color: rgb(105, 105, 105);
 }
 
 a {
-  font-weight: bold;
+    font-weight: bold;
 }
 
 .safetyImg {
-  margin: 0 auto;
-  max-width: 800px;
-  max-height: 350px;
+    margin: 0 auto;
+    max-width: 800px;
+    max-height: 350px;
 }
+
 img {
-  max-width: 800px;
-  max-height: 350px;
-  margin-left: 50px;
+    max-width: 800px;
+    max-height: 350px;
+    margin-left: 50px;
 }
 
 .table {
-  max-height: 210px;
-  overflow-y: scroll;
-  border: 2px solid #05386b;
-  border-radius: 5px;
-  padding: 0;
-  max-width: 950px;
-  margin: 0 auto;
+    max-height: 210px;
+    overflow-y: scroll;
+    border: 2px solid #05386b;
+    border-radius: 5px;
+    max-width: 900px;
+    margin: 0 auto;
 }

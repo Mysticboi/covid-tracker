@@ -1,5 +1,9 @@
 # Covid Country Tracker
 
+Simple web page where you can select a country (typing works too) and it wall call an API to get the current total covid stats ( confirmed- recovered-critical- deaths)
+
+API used: [Covid-19-data](https://rapidapi.com/fr/Gramzivi/api/covid-19-data/)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
