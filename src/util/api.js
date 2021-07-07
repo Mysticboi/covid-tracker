@@ -16,7 +16,7 @@ export const fetchTotalCovidStatus = async (countryName) => {
     return Promise.reject(error);
   }
 };
-/*
+/* // Testing 
 const testFetch = async () => {
   try {
     const testResponse = await fetchTotalCovidStatus('france');

@@ -37,7 +37,9 @@ function App() {
       const keys = totalCovidCountry.map((item) => item.code);
       const index = keys.indexOf(data.code);
       if (index !== -1) {
-        setError(`Country already selected, check row ${keys.length - index} `);
+        setError(
+          `Country already selected, check number ${keys.length - index} `
+        );
         return;
       }
       if (data.confirmed + data.recovered + data.critical + data.deaths === 0) {
@@ -60,20 +62,25 @@ function App() {
   return (
     <div className="App">
       <h1>Covid Country Tracker</h1>
+
       <h2 className="author">
-        Made by{' '}
-        <a href="https://github.com/Mysticboi" target="_blank" rel="noreferrer">
-          Walid
+        View on{' '}
+        <a
+          href="https://github.com/Mysticboi/covid-tracker"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Github
           <span> </span>
           <GitHub color="action" />
         </a>
       </h2>
+
       <h3>Select a country just below</h3>
       <div style={{ width: isMobile ? 300 : 500, margin: 'auto' }}>
         <Select options={countriesOptions} onChange={handleSelectChange} />
       </div>
 
-      <br />
       <h3 className="error">{error}</h3>
       {totalCovidCountry.length !== 0 && (
         <h3>
