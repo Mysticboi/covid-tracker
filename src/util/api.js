@@ -1,14 +1,12 @@
 import axios from 'axios';
+import apikey from './apikey.json';
 
 export const fetchTotalCovidStatus = async (countryName) => {
   const options = {
     method: 'GET',
     url: 'https://covid-19-data.p.rapidapi.com/country',
     params: { name: countryName },
-    headers: {
-      'x-rapidapi-key': '99d1a6e627mshba8f7443194897cp1f0fa6jsne0cfe850257e',
-      'x-rapidapi-host': 'covid-19-data.p.rapidapi.com',
-    },
+    headers: apikey,
   };
 
   try {
