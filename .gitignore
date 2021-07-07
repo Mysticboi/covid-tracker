@@ -1,7 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 #api_headers/keys
-/util/apikey.json
+apikey.json
 
 # dependencies
 /node_modules

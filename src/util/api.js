@@ -1,5 +1,5 @@
 import axios from 'axios';
-import apikey from './apikey.json';
+import apikey from '../apikey.json';
 
 export const fetchTotalCovidStatus = async (countryName) => {
   const options = {
