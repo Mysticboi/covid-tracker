@@ -1,5 +1,17 @@
 import axios from 'axios';
-import apikey from '../apikey.json';
+import apiKeyDev from '../apikey.json';
+
+let apikey;
+
+if (process.env.NODE_ENV === 'development') {
+  console.log('DEV');
+  apikey = apiKeyDev;
+} else {
+  apikey = {
+    'X-RapidAPI-Key': process.env.REACT_APP_KEY,
+    'X-RapidAPI-Host': 'covid-19-tracking.p.rapidapi.com',
+  };
+}
 
 export const fetchTotalCovidStatus = async (countryName) => {
   const options = {
