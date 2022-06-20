@@ -7,6 +7,7 @@ if (process.env.NODE_ENV === 'development') {
   console.log('DEV');
   apikey = apiKeyDev;
 } else {
+  console('PROD');
   apikey = {
     'X-RapidAPI-Key': process.env.REACT_APP_KEY,
     'X-RapidAPI-Host': 'covid-19-tracking.p.rapidapi.com',
