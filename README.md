@@ -2,7 +2,7 @@
 
 Simple web page where you can select a country (typing works too) and it wall call an API to get the current total covid stats ( confirmed- recovered-critical- deaths)
 
-Live Demo [Here](https://covid-tracker-v2-78ei8ofm2-mysticboi.vercel.app/)
+Live Demo [Here](https://covid-tracker-v2-26vbhilvm-mysticboi.vercel.app/)
 
 API used: [Covid-19-data](https://rapidapi.com/fr/slotixsro-slotixsro-default/api/covid-19-tracking/)
 
