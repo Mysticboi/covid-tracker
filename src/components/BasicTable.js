@@ -51,9 +51,7 @@ export default function BasicTable({ rows }) {
               <TableCell className={classes.tableTitle} align="center">
                 Recovered
               </TableCell>
-              <TableCell className={classes.tableTitle} align="center">
-                Critical
-              </TableCell>
+
               <TableCell className={classes.tableTitle} align="center">
                 Deaths
               </TableCell>
@@ -61,7 +59,7 @@ export default function BasicTable({ rows }) {
           </TableHead>
           <TableBody>
             {rows.map((row, i) => (
-              <TableRow className={classes.tableRow} key={row.code}>
+              <TableRow className={classes.tableRow} key={row.name}>
                 <TableCell
                   style={{ fontWeight: 'bold', width: 10 }}
                   align="left"
@@ -74,7 +72,7 @@ export default function BasicTable({ rows }) {
                   scope="row"
                   className={classes.tableCell}
                 >
-                  {row.country}
+                  {row.name}
                 </TableCell>
 
                 <TableCell align="center" className={classes.tableCell}>
@@ -83,9 +81,7 @@ export default function BasicTable({ rows }) {
                 <TableCell align="center" className={classes.tableCell}>
                   {numberWithCommas(row.recovered)}
                 </TableCell>
-                <TableCell align="center" className={classes.tableCell}>
-                  {numberWithCommas(row.critical)}
-                </TableCell>
+
                 <TableCell align="center" className={classes.tableCell}>
                   {numberWithCommas(row.deaths)}
                 </TableCell>

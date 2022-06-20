@@ -1,0 +1,23 @@
+# pull the official base image
+FROM node:alpine
+# set working direction
+WORKDIR /app
+# add `/app/node_modules/.bin` to $PATH
+ENV PATH /app/node_modules/.bin:$PATH
+# install application dependencies
+COPY package.json ./
+COPY yarn.lock ./
+RUN yarn
+# add app
+COPY . ./
+# build app for production
+RUN yarn build
+# Install serve for a static server
+RUN npm install -g serve
+# start app
+CMD ["serve", "-s","build","-l","3000"]
+
+# To build Image:
+# docker build -f Dockerfile.production -t covid:production .
+# To run 
+# docker run -it --rm -p 3000:3000 covid:production

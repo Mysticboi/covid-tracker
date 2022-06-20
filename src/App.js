@@ -1,7 +1,5 @@
 import { useState } from 'react';
 
-import './App.css';
-
 import BasicTable from './components/BasicTable';
 import { GitHub, Delete } from '@material-ui/icons';
 import { Button } from '@material-ui/core';
@@ -11,48 +9,57 @@ import Select from 'react-select';
 import { fetchTotalCovidStatus } from './util/api';
 import { isMobile } from 'react-device-detect';
 
+import './App.css';
 import safety from './assets/covid-safety-measures.jpg';
 
-const countriesOptions = countries.map((item) => {
-  const name = item.name;
-  return { value: name, label: name };
+const countriesOptions = countries.map((countryName) => {
+  return { value: countryName, label: countryName };
 });
 
 function App() {
-  // const [selectedCountry, setSelectedCountry] = useState('');
   const [remainingRequests, setRemainingRequests] = useState(0);
   const [totalCovidCountry, setTotalCovidCountry] = useState([]);
   const [dateLastUpdateTotal, setDateLastUpdateTotal] = useState('');
   const [error, setError] = useState('');
 
+  console.log(process.env.REACT_APP_SECRET);
+
   const handleSelectChange = async (e) => {
     // e represents the select object {value: ... , label: ...}
-    // setSelectedCountry(e.value);
     try {
-      const response = await fetchTotalCovidStatus(e.value);
+      const countryName = e.value;
+      const response = await fetchTotalCovidStatus(countryName);
       setRemainingRequests(response.headers['x-ratelimit-requests-remaining']);
-      const data = response.data[0];
-      console.log('data', data);
+      const data = response.data;
 
-      const keys = totalCovidCountry.map((item) => item.code);
-      const index = keys.indexOf(data.code);
+      const index = totalCovidCountry.findIndex(
+        ({ name }) => name === data.Country_text
+      );
       if (index !== -1) {
         setError(
-          `Country already selected, check number ${keys.length - index} `
+          `Country already selected, check number ${
+            totalCovidCountry.length - index
+          } `
         );
         return;
       }
-      if (data.confirmed + data.recovered + data.critical + data.deaths === 0) {
-        setError(`No data available for ${data.country}`);
-        return;
-      }
-      setTotalCovidCountry([data, ...totalCovidCountry]);
+      const toAdd = {
+        name: countryName,
+        confirmed: data['Total Cases_text'],
+        recovered: data['Total Recovered_text'],
+        deaths: data['Total Deaths_text'],
+        critical: 0,
+      };
+
+      setTotalCovidCountry([...totalCovidCountry, toAdd]);
       // if dateLastUpdate not already available we get it from the data
-      !dateLastUpdateTotal &&
-        setDateLastUpdateTotal(
-          data.lastUpdate.split('T')[0].split('-').reverse().join('-')
-        );
-      error && setError('');
+      if (!dateLastUpdateTotal) {
+        setDateLastUpdateTotal(data['Last Update']);
+      }
+
+      if (error) {
+        setError('');
+      }
     } catch (error) {
       setError('Only one request/second is allowed');
       console.error(error);
@@ -124,7 +131,6 @@ function App() {
           </p>
         )}
       </div>
-
       <div className="safetyImg">
         <img src={safety} alt="safetyMeasures"></img>
       </div>
