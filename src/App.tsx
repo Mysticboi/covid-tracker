@@ -12,56 +12,59 @@ import { isMobile } from 'react-device-detect';
 import './App.css';
 import safety from './assets/covid-safety-measures.jpg';
 
-const countriesOptions = countries.map((countryName) => {
+import { TotalCovid, Option } from './types';
+
+const countriesOptions: Option[] = countries.map((countryName) => {
   return { value: countryName, label: countryName };
 });
 
 function App() {
   const [remainingRequests, setRemainingRequests] = useState(0);
-  const [totalCovidCountry, setTotalCovidCountry] = useState([]);
+  const [totalCovidCountry, setTotalCovidCountry] = useState<TotalCovid[]>([]);
   const [dateLastUpdateTotal, setDateLastUpdateTotal] = useState('');
   const [error, setError] = useState('');
 
-  console.log(process.env.REACT_APP_SECRET);
-
-  const handleSelectChange = async (e) => {
-    // e represents the select object {value: ... , label: ...}
+  const handleSelectChange = async (option: Option | null) => {
+    // option represents the select object {value: ... , label: ...}
     try {
-      const countryName = e.value;
-      const response = await fetchTotalCovidStatus(countryName);
-      setRemainingRequests(response.headers['x-ratelimit-requests-remaining']);
-      const data = response.data;
-
-      const index = totalCovidCountry.findIndex(
-        ({ name }) => name === data.Country_text
-      );
-      if (index !== -1) {
-        setError(
-          `Country already selected, check number ${
-            totalCovidCountry.length - index
-          } `
+      if (option?.value) {
+        const countryName = option.value;
+        const index = totalCovidCountry.findIndex(
+          ({ name }) => name === countryName
         );
-        return;
-      }
-      const toAdd = {
-        name: countryName,
-        confirmed: data['Total Cases_text'],
-        recovered: data['Total Recovered_text'],
-        deaths: data['Total Deaths_text'],
-        critical: 0,
-      };
+        if (index !== -1) {
+          setError(
+            `Country already selected, check number ${
+              totalCovidCountry.length - index
+            } `
+          );
+          return;
+        }
+        const response = await fetchTotalCovidStatus(countryName);
+        setRemainingRequests(
+          response.headers['x-ratelimit-requests-remaining']
+        );
+        const data = response.data;
 
-      setTotalCovidCountry([...totalCovidCountry, toAdd]);
-      // if dateLastUpdate not already available we get it from the data
-      if (!dateLastUpdateTotal) {
-        setDateLastUpdateTotal(data['Last Update']);
-      }
+        const toAdd = {
+          name: countryName,
+          confirmed: data['Total Cases_text'],
+          recovered: data['Total Recovered_text'],
+          deaths: data['Total Deaths_text'],
+        };
 
-      if (error) {
-        setError('');
+        setTotalCovidCountry([toAdd, ...totalCovidCountry]);
+        // if dateLastUpdate not already available we get it from the data
+        if (!dateLastUpdateTotal) {
+          setDateLastUpdateTotal(data['Last Update']);
+        }
+
+        if (error) {
+          setError('');
+        }
       }
     } catch (error) {
-      setError('Only one request/second is allowed');
+      setError('Only 5 requests/minute is allowed');
       console.error(error);
     }
   };

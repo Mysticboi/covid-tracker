@@ -9,6 +9,8 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { isMobile } from 'react-device-detect';
 
+import { TotalCovid } from '../types';
+
 const width = isMobile ? 500 : 900;
 
 console.log('isMobile', isMobile);
@@ -30,11 +32,11 @@ const useStyles = makeStyles({
   tableCell: {},
 });
 
-const numberWithCommas = (x) => {
+const numberWithCommas = (x: string | number) => {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
 
-export default function BasicTable({ rows }) {
+export default function BasicTable({ rows }: { rows: TotalCovid[] }) {
   const classes = useStyles();
 
   return (
