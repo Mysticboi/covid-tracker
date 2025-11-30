@@ -31,6 +31,7 @@ export const fetchTotalCovidStatus = async (
 
   try {
     const response: AxiosResponse<ApiResponse> = await axios.request(options);
+    console.log("apiResponse", response);
     return response;
   } catch (error) {
     return Promise.reject(error);
