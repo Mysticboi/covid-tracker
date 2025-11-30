@@ -8,14 +8,14 @@ let apikey: {
 };
 
 if (process.env.NODE_ENV === 'development') {
-  console.log('DEV', apiKeyDev);
+  console.log('DEV');
   apikey = apiKeyDev;
 } else {
+  console.log('PROD');
   apikey = {
     'X-RapidAPI-Key': process.env.REACT_APP_KEY,
-    'X-RapidAPI-Host': 'https://covid-193.p.rapidapi.com/statistics',
+    'X-RapidAPI-Host': 'covid-193.p.rapidapi.com',
   };
-  console.log('PROD', apikey);
 }
 
 export const fetchTotalCovidStatus = async (
@@ -31,7 +31,6 @@ export const fetchTotalCovidStatus = async (
 
   try {
     const response: AxiosResponse<ApiResponse> = await axios.request(options);
-    console.log("apiResponse", response);
     return response;
   } catch (error) {
     return Promise.reject(error);
