@@ -1,8 +1,10 @@
 export type TotalCovid = {
   name: string;
-  confirmed: string;
-  recovered: string;
-  deaths: string;
+  population: number;
+  tested: number;
+  confirmed: number;
+  recovered: number;
+  deaths: number;
 };
 
 export type Option = {
@@ -11,12 +13,22 @@ export type Option = {
 };
 
 export type ApiResponse = {
-  'Active Cases_text': string;
-  Country_text: string;
-  'Last Update': string;
-  'New Cases_text': string;
-  'New Deaths_text': string;
-  'Total Cases_text': string;
-  'Total Deaths_text': string;
-  'Total Recovered_text': string;
+  response: [
+    {
+      country: string;
+      population: number;
+      cases: {
+        total: number;
+        recovered: number;
+      },
+      deaths: {
+        total: number
+      },
+      tests: {
+        total: number;
+      },
+      day: string;
+      time: string;
+    }
+  ]
 };

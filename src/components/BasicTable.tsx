@@ -33,6 +33,7 @@ const useStyles = makeStyles({
 });
 
 const numberWithCommas = (x: string | number) => {
+  if (x === null || x === undefined) return "N/A";
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
 
@@ -47,6 +48,12 @@ export default function BasicTable({ rows }: { rows: TotalCovid[] }) {
             <TableRow className={classes.tableRow}>
               <TableCell></TableCell>
               <TableCell className={classes.tableTitle}>Country name</TableCell>
+              <TableCell className={classes.tableTitle} align="center">
+                Population
+              </TableCell>
+              <TableCell className={classes.tableTitle} align="center">
+                Tested
+              </TableCell>
               <TableCell className={classes.tableTitle} align="center">
                 Confirmed
               </TableCell>
@@ -78,8 +85,17 @@ export default function BasicTable({ rows }: { rows: TotalCovid[] }) {
                 </TableCell>
 
                 <TableCell align="center" className={classes.tableCell}>
+                  {numberWithCommas(row.population)}
+                </TableCell>
+
+                <TableCell align="center" className={classes.tableCell}>
+                  {numberWithCommas(row.tested)}
+                </TableCell>
+
+                <TableCell align="center" className={classes.tableCell}>
                   {numberWithCommas(row.confirmed)}
                 </TableCell>
+
                 <TableCell align="center" className={classes.tableCell}>
                   {numberWithCommas(row.recovered)}
                 </TableCell>

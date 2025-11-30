@@ -14,7 +14,7 @@ if (process.env.NODE_ENV === 'development') {
   console.log('PROD');
   apikey = {
     'X-RapidAPI-Key': process.env.REACT_APP_KEY,
-    'X-RapidAPI-Host': 'covid-19-tracking.p.rapidapi.com',
+    'X-RapidAPI-Host': 'https://covid-193.p.rapidapi.com/statistics',
   };
 }
 
@@ -22,8 +22,11 @@ export const fetchTotalCovidStatus = async (
   countryName: string
 ): Promise<AxiosResponse<ApiResponse>> => {
   const options = {
-    url: `https://covid-19-tracking.p.rapidapi.com/v1/${countryName}`,
+    url: `https://covid-193.p.rapidapi.com/statistics`,
     headers: apikey,
+    params: {
+      country: countryName != "World" ? countryName : "all"
+    }
   };
 
   try {

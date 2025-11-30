@@ -34,29 +34,31 @@ function App() {
         );
         if (index !== -1) {
           setError(
-            `Country already selected, check number ${
-              totalCovidCountry.length - index
+            `Country already selected, check number ${totalCovidCountry.length - index
             } `
           );
           return;
         }
         const response = await fetchTotalCovidStatus(countryName);
         setRemainingRequests(
-          response.headers['x-ratelimit-requests-remaining']
+          response.headers['x-ratelimit-rapid-free-plans-hard-limit-remaining']
         );
         const data = response.data;
+        const countryData = data.response[0];
 
-        const toAdd = {
+        const toAdd: TotalCovid = {
           name: countryName,
-          confirmed: data['Total Cases_text'],
-          recovered: data['Total Recovered_text'],
-          deaths: data['Total Deaths_text'],
+          population: countryData.population,
+          confirmed: countryData.cases.total,
+          recovered: countryData.cases.recovered,
+          deaths: countryData.deaths.total,
+          tested: countryData.tests.total
         };
 
         setTotalCovidCountry([toAdd, ...totalCovidCountry]);
         // if dateLastUpdate not already available we get it from the data
         if (!dateLastUpdateTotal) {
-          setDateLastUpdateTotal(data['Last Update']);
+          setDateLastUpdateTotal(countryData.day);
         }
 
         if (error) {

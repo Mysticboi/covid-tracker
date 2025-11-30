@@ -4,7 +4,7 @@ Simple web page where you can select a country (typing works too) and it wall ca
 
 Live Demo [Here](https://covid-tracker-v2-26vbhilvm-mysticboi.vercel.app/)
 
-API used: [Covid-19-data](https://rapidapi.com/fr/slotixsro-slotixsro-default/api/covid-19-tracking/)
+API used: [Covid-19-data](https://rapidapi.com/api-sports/api/covid-193)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
