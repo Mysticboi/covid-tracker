@@ -3,8 +3,8 @@ import apiKeyDev from '../apikey.json';
 import { ApiResponse } from '../types';
 
 let apikey: {
-  'X-RapidAPI-Key'?: string;
-  'X-RapidAPI-Host'?: string;
+  'x-rapidapi-key'?: string;
+  'x-rapidapi-host'?: string;
 };
 
 if (process.env.NODE_ENV === 'development') {
@@ -13,8 +13,8 @@ if (process.env.NODE_ENV === 'development') {
 } else {
   console.log('PROD');
   apikey = {
-    'X-RapidAPI-Key': process.env.REACT_APP_KEY,
-    'X-RapidAPI-Host': 'covid-193.p.rapidapi.com',
+    'x-rapidapi-key': process.env.REACT_APP_KEY,
+    'x-rapidapi-host': 'covid-193.p.rapidapi.com',
   };
 }
 
